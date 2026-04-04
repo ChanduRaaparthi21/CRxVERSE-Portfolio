@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio Gallery | CRxVERSE</title>
+  <title>Design Gallery | CRxVERSE</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -25,86 +25,134 @@
 
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
     }
 
-    .gallery-card {
+    .gallery-image {
       background: var(--bg-card);
       border-radius: var(--radius);
       border: 1px solid var(--border);
       overflow: hidden;
       transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-      display: flex;
-      flex-direction: column;
-      text-decoration: none;
-      height: 100%;
+      cursor: pointer;
+      height: 280px;
+      display: block;
     }
 
-    .gallery-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05);
+    .gallery-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.4s ease;
+      display: block;
+    }
+
+    .gallery-image:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
       border-color: var(--accent-light);
     }
 
-    .card-preview {
-      height: 200px;
-      background: linear-gradient(135deg, #EBEBE6 0%, #F5F5F0 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .gallery-image:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Lightbox Modal Styles */
+    .lightbox-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 1000;
       justify-content: center;
-      position: relative;
-    }
-
-    .card-preview .ph-grid {
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(var(--border-strong) 1px, transparent 1px);
-      background-size: 20px 20px;
-      opacity: 0.2;
-    }
-
-    .card-info {
-      padding: 24px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card-tag {
-      font-size: 9px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--accent);
-      margin-bottom: 10px;
-    }
-
-    .card-title {
-      font-family: var(--font-display);
-      font-size: 20px;
-      color: var(--text-primary);
-      margin-bottom: 12px;
-    }
-
-    .card-desc {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .view-btn {
-      margin-top: auto;
-      display: inline-flex;
       align-items: center;
-      gap: 8px;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--accent);
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    .lightbox-modal.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox-image {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+      animation: zoomIn 0.3s ease-in;
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+      z-index: 1001;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.6);
+      transform: rotate(90deg);
+    }
+
+    .lightbox-close::before,
+    .lightbox-close::after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 1px;
+    }
+
+    .lightbox-close::before {
+      transform: rotate(45deg);
+    }
+
+    .lightbox-close::after {
+      transform: rotate(-45deg);
     }
 
     .back-nav {
@@ -132,13 +180,70 @@
 
     .btn-back:hover {
       transform: translateX(-5px);
-       border-color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .pinterest-section {
+      margin-bottom: 80px;
+    }
+
+    .pinterest-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .pinterest-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .pinterest-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .pinterest-link:hover {
+      background: #E60023;
+      border-color: #E60023;
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(230, 0, 35, 0.3);
+    }
+
+    .pinterest-icon {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
     }
 
     @media (max-width: 768px) {
       .portfolio-page { padding: 120px 20px 60px; }
       .back-nav { top: 20px; left: 20px; }
-      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+      .gallery-image { height: 180px; }
+      .lightbox-close {
+        width: 40px;
+        height: 40px;
+        top: 15px;
+        right: 15px;
+      }
+      .pinterest-links { gap: 8px; }
+      .pinterest-link { padding: 8px 14px; font-size: 12px; }
     }
   </style>
 </head>
@@ -155,152 +260,106 @@
   <section class="portfolio-page">
     <div class="gallery-header reveal visible">
       <div class="section-label">Full Collection</div>
-      <h1 class="section-title">Explore All <em>Project</em> PDFs</h1>
-      <p class="about-text">A complete archive of my 3D design work, organized by project. Click any card to view the full photorealistic presentation.</p>
+      <h1 class="section-title">Explore Our <em>Design</em> Realities</h1>
+      <p class="about-text">A curated selection of 3D interior visualizations, photorealistic renders, and virtual design concepts. Each project represents a unique journey from architectural brief to immersive reality.</p>
     </div>
 
-    <div class="gallery-grid reveal visible reveal-delay-1">
-      <!-- Vizag -->
-      <a href="Projects/Vizag.pdf" target="_blank" class="gallery-card">
-        <div class="card-preview">
-          <div class="ph-grid"></div>
-          <div class="ph-icon" style="font-size: 50px;">🌊</div>
-        </div>
-        <div class="card-info">
-          <div class="card-tag">Coastal Aesthetic</div>
-          <h3 class="card-title">Vizag Project</h3>
-          <p class="card-desc">Interior visualizations for a coastal-themed modern home.</p>
-          <div class="view-btn">View PDF ↗</div>
-        </div>
-      </a>
+    <!-- Pinterest Inspiration Links -->
+    <div class="pinterest-section reveal visible reveal-delay-1">
+      <div class="pinterest-title">📌 Design Inspiration on Pinterest</div>
+      <div class="pinterest-links">
+        <a href="https://www.pinterest.com/search/pins/?q=master%20bedroom%20interior%20design" target="_blank" class="pinterest-link">
+          <svg class="pinterest-icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.2"/>
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+          </svg>
+          Master Bedroom
+        </a>
+        <a href="https://www.pinterest.com/search/pins/?q=child%20kids%20bedroom%20interior%20design" target="_blank" class="pinterest-link">
+          <svg class="pinterest-icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.2"/>
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+          </svg>
+          Kids Bedroom
+        </a>
+        <a href="https://www.pinterest.com/search/pins/?q=kitchen%20interior%20design%20modern" target="_blank" class="pinterest-link">
+          <svg class="pinterest-icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.2"/>
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+          </svg>
+          Kitchen Design
+        </a>
+        <a href="https://www.pinterest.com/search/pins/?q=living%20room%20interior%20design" target="_blank" class="pinterest-link">
+          <svg class="pinterest-icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.2"/>
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+          </svg>
+          Living Room
+        </a>
+        <a href="https://www.pinterest.com/search/pins/?q=dining%20room%20interior%20design" target="_blank" class="pinterest-link">
+          <svg class="pinterest-icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.2"/>
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+          </svg>
+          Dining Room
+        </a>
+        <a href="https://www.pinterest.com/search/pins/?q=bathroom%20interior%20design%20modern" target="_blank" class="pinterest-link">
+          <svg class="pinterest-icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.2"/>
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+          </svg>
+          Bathroom
+        </a>
+        <a href="https://www.pinterest.com/search/pins/?q=pooja%20room%20prayer%20room%20design" target="_blank" class="pinterest-link">
+          <svg class="pinterest-icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.2"/>
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+          </svg>
+          Pooja Room
+        </a>
+        <a href="https://www.pinterest.com/search/pins/?q=home%20office%20interior%20design" target="_blank" class="pinterest-link">
+          <svg class="pinterest-icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.2"/>
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+          </svg>
+          Home Office
+        </a>
+        <a href="https://www.pinterest.com/search/pins/?q=balcony%20terrace%20outdoor%20design" target="_blank" class="pinterest-link">
+          <svg class="pinterest-icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.2"/>
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+          </svg>
+          Balcony/Outdoor
+        </a>
+        <a href="https://www.pinterest.com/search/pins/?q=wardrobe%20dressing%20room%20interior%20design" target="_blank" class="pinterest-link">
+          <svg class="pinterest-icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.2"/>
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+          </svg>
+          Wardrobe/Dressing
+        </a>
+        <a href="https://www.pinterest.com/search/pins/?q=entryway%20foyer%20interior%20design" target="_blank" class="pinterest-link">
+          <svg class="pinterest-icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.2"/>
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+          </svg>
+          Entryway/Hall
+        </a>
+      </div>
+    </div>
 
-      <!-- KISHORE_202 -->
-      <a href="Projects/KISHORE_202.pdf" target="_blank" class="gallery-card">
-        <div class="card-preview">
-          <div class="ph-grid"></div>
-          <div class="ph-icon" style="font-size: 50px;">🏢</div>
-        </div>
-        <div class="card-info">
-          <div class="card-tag">Residential</div>
-          <h3 class="card-title">Kishore 202</h3>
-          <p class="card-desc">Detailed 3D visualization of full living spaces, bedrooms, and modular storage solutions.</p>
-          <div class="view-btn">View PDF ↗</div>
-        </div>
-      </a>
-
-      <!-- Ramky304 -->
-      <a href="Projects/Ramky304.pptx.pdf" target="_blank" class="gallery-card">
-        <div class="card-preview">
-          <div class="ph-grid"></div>
-          <div class="ph-icon" style="font-size: 50px;">🎥</div>
-        </div>
-        <div class="card-info">
-          <div class="card-tag">Full Showcase</div>
-          <h3 class="card-title">Ramky 304</h3>
-          <p class="card-desc">Extensive collection of 3D renders and project walkthrough notes.</p>
-          <div class="view-btn">View PDF ↗</div>
-        </div>
-      </a>
-
-      <!-- BennySir -->
-      <a href="Projects/BennySir.pdf" target="_blank" class="gallery-card">
-        <div class="card-preview">
-          <div class="ph-grid"></div>
-          <div class="ph-icon" style="font-size: 50px;">🏠</div>
-        </div>
-        <div class="card-info">
-          <div class="card-tag">Interior Design</div>
-          <h3 class="card-title">Benny Sir Project</h3>
-          <p class="card-desc">Comprehensive interior renders and material palettes for this high-end residential project.</p>
-          <div class="view-btn">View PDF ↗</div>
-        </div>
-      </a>
-
-      <!-- NESTILO205 -->
-      <a href="Projects/NESTILO205.pdf" target="_blank" class="gallery-card">
-        <div class="card-preview">
-          <div class="ph-grid"></div>
-          <div class="ph-icon" style="font-size: 50px;">✨</div>
-        </div>
-        <div class="card-info">
-          <div class="card-tag">Modern Interior</div>
-          <h3 class="card-title">Nestilo 205</h3>
-          <p class="card-desc">Elevated design concept focusing on spatial harmony and premium lighting design.</p>
-          <div class="view-btn">View PDF ↗</div>
-        </div>
-      </a>
-
-      <!-- NESTILO_A-213 -->
-      <a href="Projects/NESTILO_A-213.pdf" target="_blank" class="gallery-card">
-        <div class="card-preview">
-          <div class="ph-grid"></div>
-          <div class="ph-icon" style="font-size: 50px;">🖼️</div>
-        </div>
-        <div class="card-info">
-          <div class="card-tag">Apartment Design</div>
-          <h3 class="card-title">Nestilo A-213</h3>
-          <p class="card-desc">Contemporary apartment interior rendering with custom furniture and layout planning.</p>
-          <div class="view-btn">View PDF ↗</div>
-        </div>
-      </a>
-
-      <!-- NESTILO_A-508 -->
-      <a href="Projects/NESTILO_A-508.pdf" target="_blank" class="gallery-card">
-        <div class="card-preview">
-          <div class="ph-grid"></div>
-          <div class="ph-icon" style="font-size: 50px;">🏠</div>
-        </div>
-        <div class="card-info">
-          <div class="card-tag">Luxury Living</div>
-          <h3 class="card-title">Nestilo A-508</h3>
-          <p class="card-desc">Sophisticated interior concepts for a modern architectural setting.</p>
-          <div class="view-btn">View PDF ↗</div>
-        </div>
-      </a>
-
-      <!-- NESTIOLO-A-516 -->
-      <a href="Projects/NESTIOLO-A-516.pdf" target="_blank" class="gallery-card">
-        <div class="card-preview">
-          <div class="ph-grid"></div>
-          <div class="ph-icon" style="font-size: 50px;">🪄</div>
-        </div>
-        <div class="card-info">
-          <div class="card-tag">Design Series</div>
-          <h3 class="card-title">Nestilo A-516</h3>
-          <p class="card-desc">Immersive 3D concepts focusing on modern aesthetics and textures.</p>
-          <div class="view-btn">View PDF ↗</div>
-        </div>
-      </a>
-
-      <!-- RajenderSir -->
-      <a href="Projects/RajenderSir.pdf" target="_blank" class="gallery-card">
-        <div class="card-preview">
-          <div class="ph-grid"></div>
-          <div class="ph-icon" style="font-size: 50px;">📐</div>
-        </div>
-        <div class="card-info">
-          <div class="card-tag">Custom Project</div>
-          <h3 class="card-title">Rajender Sir Project</h3>
-          <p class="card-desc">Bespoke interior and layout visualizations for a unique residential brief.</p>
-          <div class="view-btn">View PDF ↗</div>
-        </div>
-      </a>
-
-      <!-- SUNESHINE_117 -->
-      <a href="Projects/SUNESHINE_117.pdf" target="_blank" class="gallery-card">
-        <div class="card-preview">
-          <div class="ph-grid"></div>
-          <div class="ph-icon" style="font-size: 50px;">☀️</div>
-        </div>
-        <div class="card-info">
-          <div class="card-tag">Premium Design</div>
-          <h3 class="card-title">Sunshine 117</h3>
-          <p class="card-desc">Bright and minimalist interior concepts emphasizing natural light.</p>
-          <div class="view-btn">View PDF ↗</div>
-        </div>
-      </a>
+    <div class="gallery-grid reveal visible reveal-delay-1" id="galleryGrid">
+      <!-- Images will be loaded here by JavaScript -->
     </div>
   </section>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox-modal" id="lightboxModal">
+    <div class="lightbox-close" id="lightboxClose"></div>
+    <div class="lightbox-content">
+      <img id="lightboxImage" class="lightbox-image" src="" alt="">
+    </div>
+  </div>
 
   <footer>
     <a href="index.html" class="footer-logo">CR<span>x</span>VERSE</a>
@@ -309,6 +368,322 @@
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    // List of all images from designs folder 1-16
+    const images = [
+      // Folder 1 - v3
+      'designs/1/v3/cb1.png',
+      'designs/1/v3/cb2.png',
+      'designs/1/v3/cb3.png',
+      'designs/1/v3/cb4.png',
+      'designs/1/v3/d1.png',
+      'designs/1/v3/d2.png',
+      'designs/1/v3/d3.png',
+      'designs/1/v3/d4.png',
+      'designs/1/v3/d5.png',
+      'designs/1/v3/gb1.png',
+      'designs/1/v3/gb2.png',
+      'designs/1/v3/h1.png',
+      'designs/1/v3/h2.png',
+      'designs/1/v3/h3.png',
+      'designs/1/v3/h4.png',
+      'designs/1/v3/k1.png',
+      'designs/1/v3/k2.png',
+      'designs/1/v3/k3.png',
+      'designs/1/v3/mb1.png',
+      'designs/1/v3/mb2.png',
+      'designs/1/v3/mb3.png',
+      'designs/1/v3/mb4.png',
+      'designs/1/v3/p1.png',
+      'designs/1/v3/p2.png',
+      // Folder 2
+      'designs/2/g1.png',
+      'designs/2/h1.png',
+      'designs/2/kitchen1.png',
+      'designs/2/kitchen2.png',
+      'designs/2/mb1.png',
+      // Folder 3
+      'designs/3/D1.png',
+      'designs/3/D2.png',
+      'designs/3/H1.png',
+      'designs/3/H2.png',
+      'designs/3/H3.png',
+      'designs/3/H4.png',
+      'designs/3/H5.png',
+      'designs/3/k1.png',
+      'designs/3/K2.png',
+      'designs/3/K3.png',
+      'designs/3/KIDS1.png',
+      'designs/3/KIDS2.png',
+      'designs/3/KIDS3.png',
+      'designs/3/MB1.png',
+      'designs/3/MB2.png',
+      'designs/3/MB3.png',
+      'designs/3/MB4.png',
+      'designs/3/POOJA.png',
+      // Folder 4
+      'designs/4/1.png',
+      'designs/4/2.png',
+      'designs/4/3.png',
+      'designs/4/4.png',
+      // Folder 5
+      'designs/5/CH1.png',
+      'designs/5/CH2.png',
+      'designs/5/CH3.png',
+      'designs/5/CH4.png',
+      'designs/5/D1.png',
+      'designs/5/D2.png',
+      'designs/5/D3.png',
+      'designs/5/H1.png',
+      'designs/5/H2.png',
+      'designs/5/H3.png',
+      'designs/5/H4.png',
+      'designs/5/H5.png',
+      'designs/5/K1.png',
+      'designs/5/K2.png',
+      'designs/5/K3.png',
+      'designs/5/K4.png',
+      'designs/5/MB1.png',
+      'designs/5/MB2.png',
+      'designs/5/MB3.png',
+      'designs/5/POOJA.png',
+      'designs/5/POOJA1.png',
+      // Folder 6
+      'designs/6/dining01.png',
+      'designs/6/dining02.png',
+      'designs/6/dining1.png',
+      'designs/6/dining2.png',
+      'designs/6/dining3.png',
+      'designs/6/k01.png',
+      'designs/6/k1.png',
+      'designs/6/k2.png',
+      'designs/6/k3.png',
+      'designs/6/k4.png',
+      'designs/6/k5.png',
+      'designs/6/k6.png',
+      'designs/6/k7.png',
+      'designs/6/kdr01.png',
+      'designs/6/kdr1.png',
+      'designs/6/{35DA1D41-229A-4087-8E08-EBB42FADDB31}.png',
+      'designs/6/{3A9EAAB9-F120-4AE9-88B7-ABD40F3A6DA9}.png',
+      'designs/6/{533409C6-C16E-48ED-B532-197559DD8246}.png',
+      'designs/6/{8CEDC3AC-636F-4645-8A7B-BAF5AADF5D26}.png',
+      'designs/6/{9ECD8539-EC70-41A7-8D27-192FDB273763}.png',
+      // Folder 7
+      'designs/7/CROCKERY01.png',
+      'designs/7/CROCKERY1.png',
+      'designs/7/DINING_CEILING.png',
+      'designs/7/H1.png',
+      'designs/7/H2.png',
+      'designs/7/H3.png',
+      'designs/7/k1.png',
+      'designs/7/k2.png',
+      'designs/7/KDS1.png',
+      'designs/7/KDS2.png',
+      'designs/7/KDS3.png',
+      'designs/7/KDS_CEILING.png',
+      'designs/7/mainDoor.png',
+      'designs/7/MB-CEILING.png',
+      'designs/7/MB1.png',
+      'designs/7/MB2.png',
+      'designs/7/MB3.png',
+      'designs/7/POOJA.png',
+      // Folder 8
+      'designs/8/CH01.png',
+      'designs/8/CH02.png',
+      'designs/8/CROCKERY.png',
+      'designs/8/DINING1.png',
+      'designs/8/DINING2.png',
+      'designs/8/K1.png',
+      'designs/8/K2.png',
+      'designs/8/K3.png',
+      'designs/8/K4.png',
+      'designs/8/MB01.png',
+      'designs/8/POOJA.png',
+      'designs/8/TV1.png',
+      'designs/8/TV2.png',
+      // Folder 9
+      'designs/9/CH1.png',
+      'designs/9/CH2.png',
+      'designs/9/crockey_pooja.png',
+      'designs/9/DINING.png',
+      'designs/9/K1.png',
+      'designs/9/K2.png',
+      'designs/9/K3.png',
+      'designs/9/K4.png',
+      'designs/9/K5.png',
+      'designs/9/MB1.png',
+      'designs/9/TV.png',
+      'designs/9/TV2.png',
+      // Folder 10
+      'designs/10/ch01.png',
+      'designs/10/ch02.png',
+      'designs/10/ch03.png',
+      'designs/10/d1.png',
+      'designs/10/d2.png',
+      'designs/10/Enscape_2025-09-27-13-59-14.png',
+      'designs/10/k1.png',
+      'designs/10/k2.png',
+      'designs/10/k3.png',
+      'designs/10/k4.png',
+      'designs/10/k5.png',
+      'designs/10/k6.png',
+      'designs/10/mb1.png',
+      'designs/10/mb2.png',
+      'designs/10/mb3.png',
+      'designs/10/p1.png',
+      'designs/10/p2.png',
+      'designs/10/tv01.png',
+      'designs/10/tv02.png',
+      'designs/10/TV1.png',
+      'designs/10/tv2.png',
+      'designs/10/wash.png',
+      // Folder 11
+      'designs/11/Dining2.png',
+      'designs/11/Dining3.png',
+      'designs/11/Dining4.png',
+      'designs/11/dinning.png',
+      'designs/11/H01.png',
+      'designs/11/H1.png',
+      'designs/11/H2.png',
+      'designs/11/H3.png',
+      'designs/11/H4.png',
+      'designs/11/H5.png',
+      'designs/11/H6.png',
+      'designs/11/K1.png',
+      'designs/11/K2.png',
+      'designs/11/K3.png',
+      'designs/11/K4.png',
+      'designs/11/KDS1.png',
+      'designs/11/KDS2.png',
+      'designs/11/mb1.png',
+      'designs/11/mb2.png',
+      'designs/11/WhatsApp Image 2025-10-08 at 20.22.00_eea894a5.jpg',
+      // Folder 12
+      'designs/12/{01787DDD-0794-4BC2-A359-6E8FC18B2A7F}.png',
+      'designs/12/{247E5EB3-E22C-448F-88AF-1F592D51C62A}.png',
+      'designs/12/{3A392EE0-E27D-4B02-BD25-1F00BB548529}.png',
+      'designs/12/{44B5FACF-379C-41CF-9D47-384AC38EAD19}.png',
+      'designs/12/{48DA6CB1-9042-4FBB-90FF-1787C72A2870}.png',
+      'designs/12/{4BBA3944-DE3D-4CC5-B8FA-4CE0EEBFED59}.png',
+      'designs/12/{6EA1AD02-7352-468F-B826-13964FB65C2B}.png',
+      'designs/12/{821ECF45-D622-46F8-BC61-051CFBBFA830}.png',
+      'designs/12/{BCAE1552-ED37-4E0F-BA02-AE33BE057158}.png',
+      'designs/12/{C68C53B1-D025-467A-BDB1-6510BC368E6C}.png',
+      'designs/12/{DDA4FAA7-3597-4D15-B7D2-0C4E212D7E58}.png',
+      // Folder 13
+      'designs/13/DINING.png',
+      'designs/13/H1.png',
+      'designs/13/H2.png',
+      'designs/13/H3.png',
+      'designs/13/HANDWASH.png',
+      'designs/13/K1.png',
+      'designs/13/K2.png',
+      'designs/13/KD1.png',
+      'designs/13/KD2.png',
+      'designs/13/KD3.png',
+      'designs/13/MB1.png',
+      'designs/13/MB2.png',
+      'designs/13/POOJA.png',
+      // Folder 14
+      'designs/14/ch1.png',
+      'designs/14/ch2.png',
+      'designs/14/d1.png',
+      'designs/14/d2.png',
+      'designs/14/d3.png',
+      'designs/14/DOOR.png',
+      'designs/14/h1.png',
+      'designs/14/h11.png',
+      'designs/14/h3.png',
+      'designs/14/k1.png',
+      'designs/14/k2.png',
+      'designs/14/k3.png',
+      'designs/14/k4.png',
+      'designs/14/m1.png',
+      'designs/14/m2.png',
+      'designs/14/m3.png',
+      // Folder 15
+      'designs/15/h1.png',
+      'designs/15/h2.png',
+      'designs/15/tv.png',
+      'designs/15/TV1.png',
+      // Folder 16
+      'designs/16/ch1.jpg',
+      'designs/16/ch2.jpg',
+      'designs/16/ch3.jpg',
+      'designs/16/ch4.jpg',
+      'designs/16/ch5.jpg',
+      'designs/16/d1.png',
+      'designs/16/d2.png',
+      'designs/16/d3.png',
+      'designs/16/DOOR.png',
+      'designs/16/DOOR2.png',
+      'designs/16/g1.png',
+      'designs/16/g2.png',
+      'designs/16/k1.png',
+      'designs/16/k2.png',
+      'designs/16/k3.png',
+      'designs/16/k4.png',
+      'designs/16/m1.png',
+      'designs/16/m2.png',
+      'designs/16/m3.png',
+      'designs/16/m4.png',
+      'designs/16/tv1.png',
+      'designs/16/tv2.png',
+      'designs/16/tv3.png',
+      'designs/16/tv4.png',
+      'designs/16/tv5.png',
+      'designs/16/wall.png'
+    ];
+
+    const galleryGrid = document.getElementById('galleryGrid');
+    const lightboxModal = document.getElementById('lightboxModal');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    // Load all images into gallery
+    images.forEach(imagePath => {
+      const galleryImage = document.createElement('div');
+      galleryImage.className = 'gallery-image';
+      
+      const img = document.createElement('img');
+      img.src = imagePath;
+      img.alt = 'Design Image';
+      
+      galleryImage.appendChild(img);
+      
+      // Open lightbox on image click
+      galleryImage.addEventListener('click', () => {
+        lightboxImage.src = imagePath;
+        lightboxModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+      
+      galleryGrid.appendChild(galleryImage);
+    });
+
+    // Close lightbox
+    function closeLightbox() {
+      lightboxModal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    
+    // Close lightbox when clicking outside the image
+    lightboxModal.addEventListener('click', (e) => {
+      if (e.target === lightboxModal) {
+        closeLightbox();
+      }
+    });
+
+    // Close lightbox with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeLightbox();
+      }
+    });
+  </script>
 </body>
 
 </html>
