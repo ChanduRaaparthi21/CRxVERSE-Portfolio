@@ -2,7 +2,7 @@
 window.addEventListener('load', () => {
   const preloader = document.getElementById('preloader');
   const status = document.getElementById('loader-status');
-  
+
   const messages = ["Initializing...", "Rendering...", "Ready."];
   let i = 0;
   const statusInterval = setInterval(() => {
@@ -10,15 +10,18 @@ window.addEventListener('load', () => {
       status.innerText = messages[i];
       i++;
     }
-  }, 300);
+  }, 200);
 
+  // Show preloader for 600ms then hide
   setTimeout(() => {
     clearInterval(statusInterval);
     if (preloader) {
       preloader.style.opacity = '0';
-      setTimeout(() => preloader.style.visibility = 'hidden', 600);
+      setTimeout(() => {
+        preloader.style.visibility = 'hidden';
+      }, 300);
     }
-  }, 1500);
+  }, 600);
 });
 
 // ── FLOATING PARTICLES ──
