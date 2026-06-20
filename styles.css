@@ -1407,6 +1407,8 @@ footer {
   align-items: center;
   justify-content: space-between;
   border-radius: 0;
+  position: relative;
+  z-index: 10;
 }
 
 .footer-logo {
@@ -1415,6 +1417,7 @@ footer {
   font-weight: 600;
   color: var(--text-primary);
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .footer-logo span {
@@ -1427,11 +1430,28 @@ footer {
   font-size: 14px;
   font-style: italic;
   color: var(--text-secondary);
+  flex-shrink: 0;
 }
 
 .footer-copy {
   font-size: 13px;
   color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.footer-views {
+  font-size: 13px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+#view-count {
+  font-weight: 600;
+  color: var(--accent);
 }
 
 /* ── ANIMATIONS ── */

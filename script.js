@@ -94,6 +94,26 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
+// ── PAGE VIEW COUNTER ──
+function initializeViewCounter() {
+  let viewCount = localStorage.getItem('pageViews');
+  
+  if (!viewCount) {
+    viewCount = 1;
+  } else {
+    viewCount = parseInt(viewCount) + 1;
+  }
+  
+  localStorage.setItem('pageViews', viewCount);
+  
+  const viewCountElement = document.getElementById('view-count');
+  if (viewCountElement) {
+    viewCountElement.textContent = viewCount.toLocaleString();
+  }
+}
+
+initializeViewCounter();
+
 // ── MOBILE MENU ──
 const mobileMenu = document.getElementById('mobile-menu');
 const navLinks = document.querySelector('.nav-links');
